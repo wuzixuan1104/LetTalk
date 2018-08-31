@@ -51,7 +51,9 @@ body {
   }
 
   #sidemenu {
-    width: 20%;
+    position: fixed;
+    left: 0;
+    width: 300px;
     
     > * {
       display: inline-block;
@@ -69,21 +71,27 @@ body {
       }
     }
     #menu-user {
+      position: relative;
       display: inline-block;
-      height: 60px;
       border: 1px solid rgba(255, 0, 0, .3);
-      // padding-left: 15px;
+      padding-bottom: 10px; 
       width: 100%;
 
       > * {
         display: inline-block;
         float:left;
-        height: 60px;
-        line-height: 60px;
       }
-   
+      
+      .login {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        border-bottom: 1px solid gray;
+      }
       span.name {
         position: relative;
+        height: 40px;
+        line-height: 60px;
         width: 85%;
         text-align: left;
         padding-left: 10px;
@@ -91,6 +99,8 @@ body {
 
       span.status {
         position: relative;
+        height: 40px;
+        line-height: 60px;
         width: 15%;
         
         &:before {
@@ -111,6 +121,27 @@ body {
           }
         }
       }
+      
+
+      .btn {
+        display: block;
+        width: 100%;
+        height: 40px;
+        padding: 10px 20px;
+        text-align: left;
+        button.login {
+          display: inline-block;
+          width: 100px;
+          height: 25px;
+          color: white;
+          background-color: #989898;
+          border: none;
+          outline: none;
+          font-size: 16px;
+          @include border-radius(30px);
+        }
+      }
+      
     }
 
     #menu-list {
@@ -191,8 +222,10 @@ body {
   }
 
   #chat {
-    width: 50%;
-    
+    position: fixed;
+    right: 0;
+    width: calc(100% - 300px);
+    height: 100%;
     > * {
       display: inline-block;
       width: 100%;
@@ -201,7 +234,7 @@ body {
     header#chat-header {
       padding-left: 20px;
       border: 1px solid rgba(255, 0, 0, .3);
-
+      height: 50px;
       span.name {
         display: block;
         width: 85%;
@@ -239,57 +272,99 @@ body {
     #chat-boxes {
       display: inline-block;
       width: 100%;
+      height: calc(100% - 50px - 80px);
       border: 1px solid rgba(255, 0, 0, .3);
 
       .box {
         display: inline-block;
         width: 100%;
-        margin: 10px 0;
+        padding: 10px;
+        @include clearfix();
+
         .container {
           display: inline-block;
-          width: 80%;
-          border: 1px solid rgba(255, 0, 0, .3);
-          &.left {
-            float: left;
-            .user {
+          max-width: 60%;
+          float: left;
+
+          .info {
+            display: block;
+            @include clearfix();
+
+            > * {
+              display: inline-block;
               float: left;
+              margin-right: 5px;
+              font-size: 12px;
+              line-height: 19px;
             }
-          }
-          &.right {
-            float: right;
-            .user {
-              float: right;
+            .username {
+              font-size: 16px;
+              font-weight: bold;
+              line-height: none;
+              color: rgba(31, 33, 37, 1.00);
             }
-          }
-          
-          > * {
-            display: inline-block;
+            .datetime {
+              color: #a1a9b1;
+            }
+            .read {
+              display: none;
+              color: #7c828c;
+              &.yes {
+                display: inline-block;
+                &:before {
+                  display: inline-block;
+                  content: '已讀';
+                }
+              }
+            }
           }
 
-          .user {
-            width: 15%;
-            padding: 5px;
-            .avatar {
-              display: inline-block;
-              width: 30px;
-              height: 30px;
-              background-color: rgba(165, 191, 221, 1.00);
-              @include border-radius(50px);
-            }
-          }
           .content {
-            width: 85%;
+            display: inline-block;
+            word-break: break-all;
+            background-color: rgba(235, 237, 239, 1.00);
+            @include border-radius(5px);
+            margin: 0;
+            padding: 5px;
+          }
+
+          text-align: left;
+
+          &.right {
+            float: right;
+            text-align: right;
+            .info {
+              > * {
+                float: right;
+              }
+            }
+            .content {
+              background-color: #d3eab7;
+            }
           }
         }
       }
-
-
     }
-  }
 
-  #search {
-    width: 30%;
+    footer#chat-footer {
+      border: 1px solid rgba(255, 0, 0, .3);
+      position: relative;
+      height: 80px;
 
+      .send input {
+        position: absolute;
+        left: 10px;
+        top: calc( (100% - 50px) / 2);
+        display: inline-block;
+        width: 80%;
+        height: 50px;
+        font-size: 18px;
+        padding-left: 20px;
+        border: 2px solid #e1e8ef;
+        outline: none;
+        @include border-radius(30px);
+      }
+    }
   }
 }
 
