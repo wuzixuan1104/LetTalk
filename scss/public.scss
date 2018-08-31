@@ -46,20 +46,250 @@ body {
   > * {
     display: inline-block;
     float: left;
-    border: 1px solid red;
+    border: 1px solid rgba(255, 0, 0, .3);
     height: 1000px;
   }
 
   #sidemenu {
     width: 20%;
+    
+    > * {
+      display: inline-block;
+      width: 100%;
+    }
+
+    #menu-header {
+      span.title {
+        display: block;
+        padding: 10px;
+        text-align: left;
+        font-weight: bold;
+        font-size: 20px;
+        border: 1px solid rgba(255, 0, 0, .3);
+      }
+    }
+    #menu-user {
+      display: inline-block;
+      height: 60px;
+      border: 1px solid rgba(255, 0, 0, .3);
+      // padding-left: 15px;
+      width: 100%;
+
+      > * {
+        display: inline-block;
+        float:left;
+        height: 60px;
+        line-height: 60px;
+      }
+   
+      span.name {
+        position: relative;
+        width: 85%;
+        text-align: left;
+        padding-left: 10px;
+      }
+
+      span.status {
+        position: relative;
+        width: 15%;
+        
+        &:before {
+          position: absolute;
+          top: 26px;
+          right: 0;
+          display: inline-block;
+          content: '';
+          width: 8px;
+          height: 8px;
+          background-color: rgba(103, 104, 107, 1.00);
+          @include border-radius(50px);
+        }
+
+        &.active {
+          &:before {
+            background-color: rgba(89, 163, 83, 1.00);
+          }
+        }
+      }
+    }
+
+    #menu-list {
+      display: inline-block;
+      width: 100%;
+      border: 1px solid rgba(255, 0, 0, .3);
+
+      .users {
+        display: inline-block;
+        width: 100%;
+
+        &:before {
+          display: inline-block;
+          width: 100%;
+          content: 'friends';
+          height: 30px;
+          line-height: 30px;
+          background-color: rgba(235, 237, 239, 1.00);
+          margin-bottom: 10px;
+        }
+  
+        a.user {
+          display: inline-block;
+          width: 100%;
+          text-decoration: none;
+          color: rgba(153, 154, 156, 1.00);
+          
+          &:after {
+            position: absolute;
+            display: inline-block;
+            width: 100%;
+            bottom: -10px;
+            left: 0;
+            content: '';
+            border: 1px solid rgba(200, 203, 208, 1.00);
+          }
+
+          > * {
+            display: inline-block;
+            float:left;
+            height: 30px;
+            line-height: 30px;
+
+          }
+       
+          span.name {
+            position: relative;
+            width: 85%;
+            text-align: left;
+            padding-left: 10px;
+          }
+
+          span.status {
+            position: relative;
+            width: 15%;
+            
+            &:before {
+              position: absolute;
+              top: 11px;
+              right: 0;
+              display: inline-block;
+              content: '';
+              width: 8px;
+              height: 8px;
+              background-color: rgba(103, 104, 107, 1.00);
+              @include border-radius(50px);
+            }
+
+            &.active {
+              &:before {
+                background-color: rgba(89, 163, 83, 1.00);
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   #chat {
     width: 50%;
+    
+    > * {
+      display: inline-block;
+      width: 100%;
+    }
+
+    header#chat-header {
+      padding-left: 20px;
+      border: 1px solid rgba(255, 0, 0, .3);
+
+      span.name {
+        display: block;
+        width: 85%;
+        padding: 10px;
+        text-align: left;
+        font-weight: bold;
+        font-size: 25px;
+        margin-left: 10px; 
+      }
+
+      span.status {
+        position: relative;
+        width: 15%;
+        
+        &:before {
+          position: absolute;
+          top: 20px;
+          left: 0;
+          display: inline-block;
+          content: '';
+          width: 8px;
+          height: 8px;
+          background-color: rgba(103, 104, 107, 1.00);
+          @include border-radius(50px);
+        }
+
+        &.active {
+          &:before {
+            background-color: rgba(89, 163, 83, 1.00);
+          }
+        }
+      }
+    }
+
+    #chat-boxes {
+      display: inline-block;
+      width: 100%;
+      border: 1px solid rgba(255, 0, 0, .3);
+
+      .box {
+        display: inline-block;
+        width: 100%;
+        margin: 10px 0;
+        .container {
+          display: inline-block;
+          width: 80%;
+          border: 1px solid rgba(255, 0, 0, .3);
+          &.left {
+            float: left;
+            .user {
+              float: left;
+            }
+          }
+          &.right {
+            float: right;
+            .user {
+              float: right;
+            }
+          }
+          
+          > * {
+            display: inline-block;
+          }
+
+          .user {
+            width: 15%;
+            padding: 5px;
+            .avatar {
+              display: inline-block;
+              width: 30px;
+              height: 30px;
+              background-color: rgba(165, 191, 221, 1.00);
+              @include border-radius(50px);
+            }
+          }
+          .content {
+            width: 85%;
+          }
+        }
+      }
+
+
+    }
   }
 
   #search {
     width: 30%;
+
   }
 }
 
