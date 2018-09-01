@@ -33,7 +33,7 @@ html {
     font-size: medium;
     font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif, "微軟正黑體", "Microsoft JhengHei";
 
-    background: $mainBackgroundColor;
+    background: #fdebd5;
     background-image: $mainBackgroundImage;
 
     @include font-smoothing(antialiased);
@@ -46,7 +46,6 @@ body {
   > * {
     display: inline-block;
     float: left;
-    border: 1px solid rgba(255, 0, 0, .3);
     height: 1000px;
   }
 
@@ -86,7 +85,7 @@ body {
         position: absolute;
         right: 10px;
         top: 10px;
-        border-bottom: 1px solid gray;
+        border-bottom: 1px solid gray; 
       }
       span.name {
         position: relative;
@@ -223,8 +222,12 @@ body {
 
   #chat {
     position: fixed;
-    right: 0;
-    width: calc(100% - 300px);
+    left: calc(40%/2);
+    width: 60%;
+    @include range-width(0, 768px) {
+      width: 100%;
+      left: 0;
+    }
     height: 100%;
     > * {
       display: inline-block;
@@ -233,8 +236,18 @@ body {
 
     header#chat-header {
       padding-left: 20px;
-      border: 1px solid rgba(255, 0, 0, .3);
-      height: 50px;
+      background-color: #3d2744;
+
+      > * {
+        float: left;
+        height: 50px;
+      }
+      span.menu {
+        font-size: 35px;
+        line-height: 50px;
+        color: #bbb186;
+      }
+
       span.name {
         display: block;
         width: 85%;
@@ -243,29 +256,7 @@ body {
         font-weight: bold;
         font-size: 25px;
         margin-left: 10px; 
-      }
-
-      span.status {
-        position: relative;
-        width: 15%;
-        
-        &:before {
-          position: absolute;
-          top: 20px;
-          left: 0;
-          display: inline-block;
-          content: '';
-          width: 8px;
-          height: 8px;
-          background-color: rgba(103, 104, 107, 1.00);
-          @include border-radius(50px);
-        }
-
-        &.active {
-          &:before {
-            background-color: rgba(89, 163, 83, 1.00);
-          }
-        }
+        color: #dcb73e;
       }
     }
 
@@ -273,8 +264,8 @@ body {
       display: inline-block;
       width: 100%;
       height: calc(100% - 50px - 80px);
-      border: 1px solid rgba(255, 0, 0, .3);
-
+      border: 1px solid rgba(150, 145, 145, 0.3);
+      background-color: white;
       .box {
         display: inline-block;
         width: 100%;
@@ -332,14 +323,13 @@ body {
 
           &.right {
             float: right;
-            text-align: right;
             .info {
               > * {
                 float: right;
               }
             }
             .content {
-              background-color: #d3eab7;
+              background-color: #f1e2cb;
             }
           }
         }
@@ -347,9 +337,9 @@ body {
     }
 
     footer#chat-footer {
-      border: 1px solid rgba(255, 0, 0, .3);
       position: relative;
       height: 80px;
+      background-color: #4d3f5a;
 
       .send input {
         position: absolute;
@@ -360,7 +350,7 @@ body {
         height: 50px;
         font-size: 18px;
         padding-left: 20px;
-        border: 2px solid #e1e8ef;
+        border: 2px solid #757884;
         outline: none;
         @include border-radius(30px);
       }
