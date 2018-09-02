@@ -7,13 +7,18 @@
     </header>
 
     <div id="chat-boxes">
-
+      {{#each chatBoxes}}
+        {{> chatBox}}
+      {{/each}}
+      <div id="start" class=""></div>
+      <div class="alert">對方已離開，請按 "Leave"</div>
     </div>
 
     <footer id="chat-footer">
       <form class="send" autocomplete="off">
         <input type="text" name="msg" placeholder="say something ...">
       </form>
+      <div class="leave-btn">Leave</div>
     </footer>
 
   </div>
