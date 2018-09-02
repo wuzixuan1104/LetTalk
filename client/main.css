@@ -459,17 +459,21 @@ body #chat #chat-boxes .box .container.right .content {
 }
 body #chat #chat-boxes .alert {
   display: none;
+  margin: 20px;
+}
+body #chat #chat-boxes .alert.show {
+  display: block;
+}
+body #chat #chat-boxes .alert:before {
+  display: inline-block;
+  content: attr(data-title);
   padding: 3px 50px;
   background-color: #6e5c828c;
   color: white;
   font-size: 10px;
-  margin: 20px;
   -moz-border-radius: 30px;
   -webkit-border-radius: 30px;
   border-radius: 30px;
-}
-body #chat #chat-boxes .alert.show {
-  display: inline-block;
 }
 body #chat footer#chat-footer {
   position: relative;
