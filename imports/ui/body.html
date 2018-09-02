@@ -7,10 +7,15 @@
     </header>
 
     <div id="chat-boxes">
+      <div id="start" class=""></div>
+      <div class="alert" data-title="搜尋中..."></div>
+      <div class="alert" data-title="已配對成功，開始聊天吧！"></div>
+
       {{#each chatBoxes}}
         {{> chatBox}}
       {{/each}}
-      <div id="start" class=""></div>
+     
+      <div id="start" class="show"></div>
       <div class="alert">對方已離開，請按 "Leave"</div>
     </div>
 
