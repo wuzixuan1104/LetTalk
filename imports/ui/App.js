@@ -4,6 +4,8 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Users } from '../api/users.js';
 import { Rooms } from '../api/rooms.js';
+import { Msgs } from '../api/msgs.js';
+import Msg from './Msg.js';
 
 // class Alert extends Component {
 //   render() {
@@ -30,7 +32,7 @@ class App extends Component {
     if(user && user.roomId == 0) {
       setTimeout(function() {
         let talker = Users.findOne({_id: {$ne: user._id} });
-        if( talker._id != user._id) {
+        if( talker && talker._id != user._id) {
           Meteor.call('rooms.insert');
           let roomId = Session.get('roomId');
 
@@ -40,10 +42,8 @@ class App extends Component {
           Meteor.call('users.setSearch', talker._id, false);
         }
         
-      },1000);
+      },5000);
     }
-   
-
 
     // ReactDOM.render(
     //   <Alert class="alert show" msg="搜尋中..." />,
@@ -51,36 +51,31 @@ class App extends Component {
     // );
   }
 
-  msgSubmit() {
-    console.log(this.props.users);
+  msgSubmit(event) {
     event.preventDefault();
     const text = ReactDOM.findDOMNode(this.refs.msg).value.trim();
-    
-    Meteor.call('msgs.insert', this.props.roomId, this.props.user._id, text);
+    Meteor.call('msgs.insert', Session.get('roomId'), Session.get('currentUserId'), text);
 
     ReactDOM.findDOMNode(this.refs.msg).value = '';
-    return false;
   }
 
   renderMsgs() {
-    if(!this.props.roomId) 
-      return;
+    if(!Session.get('roomId')) 
+      return '';
 
+    let msgs = Msgs.find({ roomId: Session.get('roomId')}).fetch();
+    console.log(msgs);
     return msgs.map((msg) => {
       return (
         <Msg
           key={msg._id}
           msg={msg}
-          userId={this.props.user._id}
-        />
+          userId={Session.get('currentUserId')}/>
       );
     });
   }
 
   render() {
-    if(this.state.alert) {
-
-    }
 
     return (
       <div id="chat">
@@ -94,7 +89,7 @@ class App extends Component {
         </div>
 
         <footer id="chat-footer">
-          <form id='x' className="send" autoComplete="off" onSubmit={this.msgSubmit.bind(this)}>
+          <form className="send" autoComplete="off" onSubmit={this.msgSubmit.bind(this)}>
             <input type="text" ref="msg" placeholder="say something ..."/>
           </form>
           <div className="leave-btn">Leave</div>
@@ -110,7 +105,7 @@ export default withTracker(() => {
   Meteor.subscribe('msgs');
 
   return {
-    msgs: Users.find({}, { sort: { createdAt: -1 } }).fetch(),
+    msgs: Msgs.find( {}, { sort: { createdAt: -1 } }).fetch(),
   };
 })(App);
 
