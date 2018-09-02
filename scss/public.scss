@@ -33,8 +33,9 @@ html {
     font-size: medium;
     font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif, "微軟正黑體", "Microsoft JhengHei";
 
-    background: #fdebd5;
-    background-image: $mainBackgroundImage;
+    background: #a8a5a95e;
+
+    background-image: linear-gradient(to bottom, #e8c190,#b09bb5 100%);
 
     @include font-smoothing(antialiased);
   }
@@ -222,12 +223,19 @@ body {
 
   #chat {
     position: fixed;
-    left: calc(40%/2);
-    width: 60%;
-    @include range-width(0, 768px) {
-      width: 100%;
-      left: 0;
-    }
+    width: 100%;
+    left: 0;
+    // left: calc((100% - 768px)/2);
+    // width: 768px;
+
+    // @include range-width(800px, 1025px) {
+    //   width: 768px;
+    // }
+
+    // @include range-width(0, 800px) {
+    //   width: 100%;
+    //   left: 0;
+    // }
     height: 100%;
     > * {
       display: inline-block;
@@ -262,10 +270,23 @@ body {
 
     #chat-boxes {
       display: inline-block;
-      width: 100%;
-      height: calc(100% - 50px - 80px);
+      left: calc((100% - 1000px)/2);
+      width: 1000px;
+
+      @include range-width(800px, 1000px) {
+        width: 768px;
+      }
+
+      @include range-width(0, 800px) {
+        width: 100%;
+        left: 0;
+      }
+
+      height: calc(100% - 50px - 60px);
       border: 1px solid rgba(150, 145, 145, 0.3);
-      background-color: white;
+      background-color: #fdfdfd7a;
+      overflow: scroll;
+
       .box {
         display: inline-block;
         width: 100%;
@@ -287,6 +308,16 @@ body {
               margin-right: 5px;
               font-size: 12px;
               line-height: 19px;
+            }
+            .status {
+              width: 8px;
+              height: 8px;
+              background-color: rgba(89, 163, 83, 1.00);
+              margin-top: 5px;
+              @include border-radius(50px);
+              &.leave {
+                background-color: rgba(103, 104, 107, 1.00);
+              }
             }
             .username {
               font-size: 16px;
@@ -334,25 +365,51 @@ body {
           }
         }
       }
+
+      .alert {
+        display: inline-block;
+        padding: 3px 50px;
+        background-color: #6e5c828c;
+        color: white;
+        font-size: 10px;
+        margin: 20px;
+        @include border-radius(30px);
+      }
     }
 
     footer#chat-footer {
       position: relative;
-      height: 80px;
+      height: 60px;
       background-color: #4d3f5a;
 
       .send input {
         position: absolute;
-        left: 10px;
-        top: calc( (100% - 50px) / 2);
+        left: 90px;
+        top: calc( (100% - 40px) / 2);
         display: inline-block;
-        width: 80%;
-        height: 50px;
-        font-size: 18px;
+        width: calc(80% - 60px);
+        height: 40px;
+        font-size: 15px;
         padding-left: 20px;
         border: 2px solid #757884;
         outline: none;
         @include border-radius(30px);
+      }
+
+      .leave-btn {
+        position: absolute;
+        left: 10px;
+        top: calc( (60px - 15px - 22px) / 2);
+        font-size: 15px;
+        padding: 8px;
+        
+        border: 2px solid #f3b23b;
+        color: #f3b23b;
+
+        &:hover {
+          cursor: pointer;
+          background-color: #695d71;
+        }
       }
     }
   }
