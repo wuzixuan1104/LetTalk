@@ -27,6 +27,15 @@ class App extends Component {
 
   _onClickMsgSubmit(event) {
     event.preventDefault();
+    
+    if(!Session.get('roomId')) {
+      let user = Users.find({_id: Session.get('currentUserId')});
+      console.log(user);
+      if(user && user.roomId == 0)
+        return;
+      Session.set('roomId', user.roomId); 
+    }
+
     const target = this.refs.msg;
     const text = target.value.trim();
     console.log('roomId: ' + Session.get('roomId'));
