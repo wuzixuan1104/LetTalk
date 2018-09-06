@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
+import { DDP } from 'meteor/ddp-client'
 
 export const Users = new Mongo.Collection('users');
 
@@ -15,6 +16,26 @@ if (Meteor.isServer) {
     });
   });
 }
+
+if(Meteor.isClient) {
+  var remote = DDP.connect('http://127.0.0.1:3000');
+  const RUsers = new Meteor.Collection('users', remote); 
+
+  remote.subscribe('users', function() {
+    RUsers.find().observe({
+      // When collection changed, find #results element and publish result inside it
+      changed:function(res) {
+        console.log('change');
+        console.log(res);
+      },
+      added:function(res) {
+        console.log('add');
+        console.log(res);
+      }
+    });
+  });
+}
+
 
 Meteor.methods({
   'users.insert'() {
@@ -31,13 +52,7 @@ Meteor.methods({
     check(userId, String);
     check(roomId, String);
   
-    Users.update(userId, { $set: { roomId: roomId } });
-  },
-  'users.setSearch'(userId, search) {
-    check(userId, String);
-    check(search, Boolean);
-    
-    Users.update(userId, { $set: { search: search } });
+    Users.update(userId, { $set: { roomId: roomId, search: false } });
   }
 });
 
