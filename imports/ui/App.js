@@ -15,7 +15,7 @@ class App extends Component {
     this._onClickStartTalk = this._onClickStartTalk.bind(this);
     this._onClickMsgSubmit = this._onClickMsgSubmit.bind(this);
     this._renderMsgs = this._renderMsgs.bind(this);
-    this._searchOther = this._searchOther.bind(this);
+    this._renderAlerts = this._renderAlerts.bind(this);
   }
 
   _onClickStartTalk() {
@@ -25,24 +25,23 @@ class App extends Component {
     this._searchOther();
   }
 
-  _onClickMsgSubmit(event) {
-    event.preventDefault();
-    
+  _checkRoomId() {
     if(!Session.get('roomId')) {
-      let user = Users.find({_id: Session.get('currentUserId')});
-      console.log(user);
+      let user = Users.findOne({ _id: Session.get('currentUserId')});
       if(user && user.roomId == 0)
         return;
       Session.set('roomId', user.roomId); 
     }
+  }
+
+  _onClickMsgSubmit(event) {
+    event.preventDefault();
+    this._checkRoomId();
 
     const target = this.refs.msg;
     const text = target.value.trim();
-    console.log('roomId: ' + Session.get('roomId'));
-    console.log('userId: ' + Session.get('currentUserId'));
 
     Meteor.call('msgs.insert', Session.get('roomId'), Session.get('currentUserId'), text);
-
 
     target.value = '';
   }
@@ -75,6 +74,10 @@ class App extends Component {
     });
   }
 
+  _renderAlerts() {
+
+  }
+  
   render() {
     const start = this.state.start ? 'show' : '';
 
@@ -86,7 +89,9 @@ class App extends Component {
         </header>
         <div id="chat-boxes">
           <div id="start" className={start} onClick={this._onClickStartTalk}></div>
+          {this._renderAlerts()}          
           {this._renderMsgs()}
+
         </div>
 
         <footer id="chat-footer">
@@ -99,39 +104,6 @@ class App extends Component {
     );
   }
 }
-
-
-
-
-
-
-// Users.find().observe({
-//   added: function(newDocument, oldDocument) {
-//     console.log('add');
-//     const userId = Session.get('currentUserId');
-//     const user = Users.findOne({_id: userId});
-
-//     if(!user)
-//       return;
-
-//     if(user.roomId != 0) { //connected with other
-//       // remove 搜尋中... show 開始聊天
-//       Session.set('roomId', user.roomId);
-//     } else if(newDocument._id != userId) { // create new connect
-//       const other = Users.findOne({_id: newDocument._id});
-//       console.log(other);
-//       if(other.roomId == user.roomId) {
-
-//         Session.set('roomId', user.roomId);
-//       }
-//     }
-//   },
-
-//   changed: function(newDocument, oldDocument) {
-//     console.log('changed');
-//     console.log(newDocument);
-//   }
-// });
 
 export default withTracker(() => {
   Meteor.subscribe('users');

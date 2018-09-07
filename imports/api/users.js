@@ -7,13 +7,7 @@ export const Users = new Mongo.Collection('users');
 
 if (Meteor.isServer) {
   Meteor.publish('users', function usersPublication() {
-     return Users.find({
-      $and: [
-        { search: { $ne: false } },
-        { enable: { $ne: false } },
-        { roomId: 0 },
-      ],
-    });
+     return Users.find({ enable: { $ne: false } });
   });
 }
 
@@ -23,19 +17,13 @@ if(Meteor.isClient) {
 
   remote.subscribe('users', function() {
     RUsers.find().observe({
-      // When collection changed, find #results element and publish result inside it
       changed:function(res) {
-        console.log('change');
-        console.log(res);
       },
       added:function(res) {
-        console.log('add');
-        console.log(res);
       }
     });
   });
 }
-
 
 Meteor.methods({
   'users.insert'() {
