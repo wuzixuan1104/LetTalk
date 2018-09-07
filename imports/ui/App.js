@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import classnames from 'classnames';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Users } from '../api/users.js';
@@ -10,12 +11,10 @@ import Msg from './Msg.js';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { start: true, search: true };
-
+    this.state = { start: true };
     this._onClickStartTalk = this._onClickStartTalk.bind(this);
     this._onClickMsgSubmit = this._onClickMsgSubmit.bind(this);
     this._renderMsgs = this._renderMsgs.bind(this);
-    this._renderAlerts = this._renderAlerts.bind(this);
   }
 
   _onClickStartTalk() {
@@ -25,18 +24,8 @@ class App extends Component {
     this._searchOther();
   }
 
-  _checkRoomId() {
-    if(!Session.get('roomId')) {
-      let user = Users.findOne({ _id: Session.get('currentUserId')});
-      if(user && user.roomId == 0)
-        return;
-      Session.set('roomId', user.roomId); 
-    }
-  }
-
   _onClickMsgSubmit(event) {
     event.preventDefault();
-    this._checkRoomId();
 
     const target = this.refs.msg;
     const text = target.value.trim();
@@ -59,27 +48,24 @@ class App extends Component {
     Meteor.call('users.setRoom', userId, Session.get('roomId'));
     Meteor.call('users.setRoom', this.props.other._id, Session.get('roomId'));
 
-    this.setState({search: false});
   }
 
   _renderMsgs() {
-    let msgs = Msgs.find({ roomId: Session.get('roomId')}).fetch();
-    return msgs.map((msg) => {
+    if(!this.props.msgs || !Session.get('currentUserId')) 
+      return;
+
+    return this.props.msgs.map((msg) => {
       return (
-        <Msg
-          key={msg._id}
-          msg={msg}
-          userId={Session.get('currentUserId')}/>
+        <Msg key={msg._id} msg={msg} userId={Session.get('currentUserId')}/>
       );
     });
   }
 
-  _renderAlerts() {
-
-  }
-  
   render() {
-    const start = this.state.start ? 'show' : '';
+    const startClass = Session.get('currentUserId') || !this.state.start ? '' : 'show';
+    const searchClass = classnames({ alert, show: ( Session.get('currentUserId') || !this.state.start ) ? true : false });
+    const searchSuccessClass = classnames({ alert, show: Session.get('roomId') ? true : false});
+    const leaveClass = classnames({ alert, show: false});
 
     return (
       <div id="chat">
@@ -88,10 +74,11 @@ class App extends Component {
           <span className="name">LetTalk</span>
         </header>
         <div id="chat-boxes">
-          <div id="start" className={start} onClick={this._onClickStartTalk}></div>
-          {this._renderAlerts()}          
+          <div id="start" className={startClass} onClick={this._onClickStartTalk}></div>
+          <div className={searchClass} data-title="搜尋中..."></div>
+          <div className={searchSuccessClass} data-title="已配對成功，開始聊天囉！"></div>
           {this._renderMsgs()}
-
+          <div className={leaveClass} data-title="對方已離開，請按左下方[Leave]"></div>
         </div>
 
         <footer id="chat-footer">
@@ -111,8 +98,8 @@ export default withTracker(() => {
   Meteor.subscribe('msgs');
 
   return {
-    msgs: Msgs.find({}, { sort: { createdAt: -1 } }).fetch(),
-    other: Users.findOne({ enable: true, search: true }),
+    msgs: Session.get('roomId') ? Msgs.find({ roomId: Session.get('roomId') }).fetch() : null,
+    other: Users.findOne({ roomId: { $eq: 0 } }),
   };
 })(App);
 

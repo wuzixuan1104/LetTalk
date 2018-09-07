@@ -6,11 +6,11 @@ import { Msgs } from '../api/msgs.js';
 export default class Msg extends Component {
 
   render() {
-    const {msgUserId, createdAt, text} = this.props.msg;
+    const {userId, createdAt, text} = this.props.msg;
 
     const MsgClassName = classnames({
       container: true,
-      right: ( this.props.userId == msgUserId ) ? true : false,
+      right: ( this.props.userId == userId ) ? true : false,
     });
     const date = createdAt.toTimeString().substr(0, 5);
 

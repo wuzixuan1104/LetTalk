@@ -15,21 +15,26 @@ if(Meteor.isClient) {
   var remote = DDP.connect('http://127.0.0.1:3000');
   const RUsers = new Meteor.Collection('users', remote); 
 
-  remote.subscribe('users', function() {
-    RUsers.find().observe({
-      changed:function(res) {
-      },
-      added:function(res) {
-      }
+  if(!Session.get('roomId')) {
+    remote.subscribe('users', function() {
+      RUsers.find().observe({
+        changed:function(res) {
+          console.log('changed: ', '_id: ' + res._id, 'room_id: ' + res.roomId);
+          if(res._id == Session.get('currentUserId'))
+            Session.set('roomId', res.roomId);
+        },
+        added:function(res) {
+          console.log('added:', '_id: ' + res._id, 'room_id: ' + res.roomId);
+        }
+      });
     });
-  });
+  }
 }
 
 Meteor.methods({
   'users.insert'() {
     Users.insert({
       roomId: 0,
-      search: true,
       enable: true,
       createdAt: new Date(),
     }, function(err, res) {
@@ -40,7 +45,7 @@ Meteor.methods({
     check(userId, String);
     check(roomId, String);
   
-    Users.update(userId, { $set: { roomId: roomId, search: false } });
+    Users.update(userId, { $set: { roomId: roomId } });
   }
 });
 
