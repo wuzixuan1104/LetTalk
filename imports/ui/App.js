@@ -12,12 +12,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { start: true };
+
     this._onClickStartTalk = this._onClickStartTalk.bind(this);
     this._onClickMsgSubmit = this._onClickMsgSubmit.bind(this);
+    this._onClickLeave = this._onClickLeave.bind(this);
     this._renderMsgs = this._renderMsgs.bind(this);
   }
 
-  _onClickStartTalk() {
+  _onClickStartTalk(event) {
+    event.preventDefault();
     this.setState({start: false});
     Meteor.call('users.insert');
 
@@ -27,12 +30,29 @@ class App extends Component {
   _onClickMsgSubmit(event) {
     event.preventDefault();
 
+    if(!Session.get('roomId') || Session.get('leave'))
+      return;
+
     const target = this.refs.msg;
     const text = target.value.trim();
 
     Meteor.call('msgs.insert', Session.get('roomId'), Session.get('currentUserId'), text);
-
     target.value = '';
+  }
+
+  _onClickLeave(event) {
+    event.preventDefault();
+    this.setState({start: true});
+    Session.set('leave', null);
+
+    if(Session.get('currentUserId')) {
+      Meteor.call('users.setEnable', Session.get('currentUserId'), false);
+      Session.set('currentUserId', null);
+    }
+    if(Session.get('roomId')) {
+      Meteor.call('rooms.setEnable', Session.get('roomId'), false);
+      Session.set('roomId', null);
+    }
   }
 
   _searchOther() {
@@ -47,7 +67,6 @@ class App extends Component {
     Meteor.call('rooms.insert');
     Meteor.call('users.setRoom', userId, Session.get('roomId'));
     Meteor.call('users.setRoom', this.props.other._id, Session.get('roomId'));
-
   }
 
   _renderMsgs() {
@@ -65,7 +84,7 @@ class App extends Component {
     const startClass = Session.get('currentUserId') || !this.state.start ? '' : 'show';
     const searchClass = classnames({ alert, show: ( Session.get('currentUserId') || !this.state.start ) ? true : false });
     const searchSuccessClass = classnames({ alert, show: Session.get('roomId') ? true : false});
-    const leaveClass = classnames({ alert, show: false});
+    const leaveClass = classnames({ alert, show: Session.get('leave') ? true : false});
 
     return (
       <div id="chat">
@@ -85,7 +104,7 @@ class App extends Component {
           <form className="send" autoComplete="off" onSubmit={this._onClickMsgSubmit}>
             <input type="text" ref="msg" placeholder="say something ..."/>
           </form>
-          <div className="leave-btn">Leave</div>
+          <div className="leave-btn" onClick={this._onClickLeave}>Leave</div>
         </footer>
       </div>
     );
