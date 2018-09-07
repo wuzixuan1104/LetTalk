@@ -4,5 +4,14 @@
   + 前端：react.js
   + 切版：scss
   + 資料庫：mongoDB
-+ 此專案目的為練習Meteor框架，具備realtime做到即時傳送訊息
+
++ 兩種平台使用者搜尋成功後進行連線聊天，且具備realtime可以即時更新傳送的訊息
+
++ 此專案可以build成三種平台- web, ios, androis
+
++ 實作範例：
+  + web版本
+  + <img src="public/web.png">
+  + ios版本
+  + <img src="public/ios.png">
 
