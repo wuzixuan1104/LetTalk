@@ -11,7 +11,7 @@
 
 + 實作範例：
   + web版本
-  + <img src="public/web.png" width='500'>
+  + <img src="public/images/web2.png" width='700'>
   + ios版本
-  + <img src="public/ios.png" width='300'>
+  + <img src="public/images/ios.png" width='300'>
 
