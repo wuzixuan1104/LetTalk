@@ -9,6 +9,7 @@ if (Meteor.isServer) {
   Meteor.publish('users', function usersPublication() {
      return Users.find({ enable: { $ne: false } });
   });
+  
 }
 
 if(Meteor.isClient) {
@@ -24,25 +25,6 @@ if(Meteor.isClient) {
           Session.set('leave', true);
         else (res._id == Session.get('currentUserId')) 
           Session.set('roomId', res.roomId);
-      },
-      added: function(res) {
-        // console.log('added: ', '_id: ' + res._id, 'room_id: ' + res.roomId, 'enable: ' + res.enable);
-      }
-    });
-  });
-
-  const RRooms = new Meteor.Collection('rooms', remote);
-  remote.subscribe('rooms', function() {
-    RRooms.find().observe({
-      changed: function(res) {
-        console.log('room changed: ', '_id: ' + res._id, 'enable: ' + res.enable);
-
-        if (!res.enable && res.roomId == Session.get('roomId'))
-          Session.set('leave', true);
-       
-      },
-      added: function(res) {
-        // console.log('added: ', '_id: ' + res._id, 'room_id: ' + res.roomId, 'enable: ' + res.enable);
       }
     });
   });
