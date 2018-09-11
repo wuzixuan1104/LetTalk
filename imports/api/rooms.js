@@ -6,11 +6,7 @@ export const Rooms = new Mongo.Collection('rooms');
 
 if (Meteor.isServer) {
   Meteor.publish('rooms', function roomsPublication() {
-     return Rooms.find({
-      $and: [
-        { enable: { $ne: false } },
-      ],
-    });
+    return Rooms.find();
   });
 }
 

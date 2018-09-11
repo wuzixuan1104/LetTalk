@@ -29,7 +29,6 @@ class App extends Component {
 
   _onClickMsgSubmit(event) {
     event.preventDefault();
-
     if(!Session.get('roomId') || Session.get('leave'))
       return;
 
@@ -89,7 +88,7 @@ class App extends Component {
     return (
       <div id="chat">
         <header id="chat-header">
-          <span className="menu">&equiv;</span>
+          <label className="menu" htmlFor="chkmenu">&equiv;</label>
           <span className="name">LetTalk</span>
         </header>
         <div id="chat-boxes">

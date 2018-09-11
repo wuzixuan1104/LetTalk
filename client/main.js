@@ -3,10 +3,9 @@ import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
  
 import App from '../imports/ui/App.js';
- 
+import Menu from '../imports/ui/Menu.js';
+
 Meteor.startup(() => {
-  if(Meteor.isCordova){
-    // StatusBar.hide();
-  }
+  render(<Menu />, document.getElementById('render-sidemenu'));
   render(<App />, document.getElementById('render-target'));
 });

@@ -6,7 +6,7 @@ export const Msgs = new Mongo.Collection('msgs');
 
 if (Meteor.isServer) {
   Meteor.publish('msgs', function msgsPublication() {
-     return Msgs.find();
+    return Msgs.find();
   });
 }
 
