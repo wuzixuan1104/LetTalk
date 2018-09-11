@@ -14,44 +14,40 @@
 
   </head>
   <body lang="zh-tw">
-    <!-- <div id="sidemenu">
-      <header id="menu-header">
-        <span class="title">LetTalk</span>
+    
+    <input type="checkbox" id="chkmenu"/>
+    <div id="sidemenu" class="">
+      <header>
+        <label class="title">LetTalk</label>
       </header>
-      <div id="menu-user">
-        <div class="login">+ login</div>
-        <span class="status active"></span>
-        <span class="name">visitor</span>
-      
-      </div>
-      <div id="menu-list">
-        <div class="users">
-          <a class="user" href="#">
-            <span class="status"></span>
-            <span class="name">OA</span>
-          </a>
-          <a class="user" href="#">
-            <span class="status active"></span>
-            <span class="name">Julie</span>
-          </a>
+      <div class="container">
+        <div class="record">
+          <span class="name">Online</span>
+          <b>18</b>
+        </div>
+        <div class="record">
+          <span class="name">Chatting</span>
+          <b>18</b>
         </div>
       </div>
-    </div> -->
+      <footer>
+        <span class="author">Chestnuter Wu</span>
+      </footer>
+    </div>
+    <label id="menu-cover" for="chkmenu"></label>
 
     <div id="chat">
       <header id="chat-header">
-        <span class="menu">&equiv;</span>
+        <label class="menu" for="chkmenu">&equiv;</label>
         <span class="name">LetTalk</span>
       </header>
 
       <div id="chat-boxes">
-        <div class="box">
+        <!-- <div class="box">
           <div class="container">
             <div class="info">
               <span class="status"></span>
-              <!-- <span class="username">You</span> -->
               <span class="datetime">7:00 am</span>
-              <!-- <span class="read yes"></span> -->
             </div>
             <p class='content'>
               Hello
@@ -63,9 +59,7 @@
           <div class="container right">
             <div class="info">
               <span class="status"></span>
-              <!-- <span class="username">Me</span> -->
               <span class="datetime">7:00 am</span>
-              <!-- <span class="read yes"></span> -->
             </div>
             <p class="content">asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
           </div>
@@ -75,9 +69,7 @@
           <div class="container">
             <div class="info">
               <span class="status"></span>
-              <!-- <span class="username">Me</span> -->
               <span class="datetime">7:00 am</span>
-              <!-- <span class="read yes"></span> -->
             </div>
             <p class="content">asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
           </div>
@@ -87,9 +79,7 @@
           <div class="container right">
             <div class="info">
               <span class="status"></span>
-              <!-- <span class="username">Me</span> -->
               <span class="datetime">7:00 am</span>
-              <!-- <span class="read yes"></span> -->
             </div>
             <p class="content">asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
           </div>
@@ -99,9 +89,7 @@
           <div class="container">
             <div class="info">
               <span class="status"></span>
-              <!-- <span class="username">Me</span> -->
               <span class="datetime">7:00 am</span>
-              <!-- <span class="read yes"></span> -->
             </div>
             <p class="content">asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
           </div>
@@ -111,9 +99,7 @@
           <div class="container left">
             <div class="info">
               <span class="status"></span>
-              <!-- <span class="username">OA</span> -->
               <span class="datetime">7:00 am</span>
-              <!-- <span class="read yes"></span> -->
             </div>
             <p class='content'>
               dffghjkkjhgewwertyuuytrewwsdfghgfd
@@ -125,49 +111,20 @@
           <div class="container left">
             <div class="info">
               <span class="status"></span>
-              <!-- <span class="username">OA</span> -->
               <span class="datetime">7:00 am</span>
-              <!-- <span class="read yes"></span> -->
             </div>
             <p class='content'>
               dffghjkkjhgewwertyuuytrewwsdfghgfd
             </p>
           </div>
         </div>
-
-        <div class="box">
-          <div class="container left">
-            <div class="info">
-              <span class="status"></span>
-              <!-- <span class="username">OA</span> -->
-              <span class="datetime">7:00 am</span>
-              <!-- <span class="read yes"></span> -->
-            </div>
-            <p class='content'>
-              dffghjkkjhgewwertyuuytrewwsdfghgfd
-            </p>
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="container left">
-            <div class="info">
-              <span class="status"></span>
-              <!-- <span class="username">OA</span> -->
-              <span class="datetime">7:00 am</span>
-              <!-- <span class="read yes"></span> -->
-            </div>
-            <p class='content'>
-              dffghjkkjhgewwertyuuytrewwsdfghgfd
-            </p>
-          </div>
-        </div>
-
-        <div class="alert">對方已離開</div>
+ -->
+        <div id="start" class=""></div>
+        <div class="alert" data-title="對方已離開，請按<Leave>"></div>
       </div>
 
       <footer id="chat-footer">
-        <form id='x' class="send" autocomplete="off">
+        <form class="send" autocomplete="off">
           <input type="text" name="msg" placeholder="say something ...">
         </form>
         <div class="leave-btn">Leave</div>
