@@ -12,10 +12,12 @@
   + 此專案會為不同使用者搜尋聊天對象，搜尋成功後進行連線聊天，且具備realtime可以即時更新傳送的訊息
 
 ### 實作範例
-  + web版本
+  1. 左側列表統計目前`在線人數`、`等待搜尋數`、`在線聊天室數`
+  2. 圖示：搜尋聊天配對
   + <img src="public/images/web-search.png" width='600'>
+  3. 圖示：配對成功
   + <img src="public/images/web-chatting.png" width='600'>
-  + <img src="public/images/web2.png" width='700'>
-  + ios版本
+  4. 圖示：聊天中 （此範例web與ios版本進行配對成功）
+  + <img src="public/images/web2.png" width='700'> 
   + <img src="public/images/ios.png" width='300'>
 
