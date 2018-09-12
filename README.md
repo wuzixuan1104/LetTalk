@@ -13,6 +13,8 @@
 
 ### 實作範例
   + web版本
+  + <img src="public/images/web-search.png" width='600'>
+  + <img src="public/images/web-chatting.png" width='600'>
   + <img src="public/images/web2.png" width='700'>
   + ios版本
   + <img src="public/images/ios.png" width='300'>

@@ -28,7 +28,7 @@ body #sidemenu header { display: inline-block; width: 100%; }
 body #sidemenu header label.title { display: inline-block; font-size: 30px; font-weight: bold; color: #dcb73e; padding: 50px 0px; }
 body #sidemenu .container { display: inline-block; width: 100%; padding: 20px 0; }
 body #sidemenu .container .record { position: relative; display: block; width: 200px; height: 30px; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; background-color: #7a6e86; margin-left: calc(50% - 200px / 2); margin-bottom: 20px; }
-body #sidemenu .container .record > * { font-size: 16px; line-height: 30px; color: #ffffff; }
+body #sidemenu .container .record > * { font-size: 14px; line-height: 30px; color: #ffffff; }
 body #sidemenu .container .record .name { position: absolute; top: 0; left: 10px; }
 body #sidemenu .container .record b { position: absolute; top: 0; right: 10px; }
 body #sidemenu footer { position: absolute; left: 0; bottom: 20px; display: inline-block; width: 250px; }
